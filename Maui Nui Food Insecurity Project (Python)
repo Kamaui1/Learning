@@ -1,0 +1,36 @@
+import pandas as pd
+import mat.plot.lib as plt
+import numpy as np
+import seaborn as sns
+import ssl
+
+ssl._create_default_https_context = ssl._create_unverified_context
+
+maui_food_df = pd.read_csv('Maui_Food_Insecurity_Index.csv')
+
+print(maui_food_df)
+
+#fig, ax = plt.subplots()
+
+#print(ax)
+#print(fig)
+
+maui_zipcode = maui_food_df.County.to_list()
+
+x = [str(zip) for zip in maui_zipcode]
+
+print(x)
+
+plt.figure(figsize=(15,6))
+plt.title('Maui Food Insecurity Index using Basic Plot', fontsize=20)
+plt.xlabel('Maui Zip Code', fontsize=15, labelpad=25)
+plt.ylabel('Percentage by Need', fontsize=15, labelpad=25)
+plt.plot(x, maui_food_df['Index value'])
+
+sns.barplot(x = x, y = maui_food_df['Index value'], palette='Greens_d')
+sns.set(rc = {'figure.figsize':(15,10)})
+
+plt.yticks(np.arange(0, 110, 10))
+plt.title('Maui Food Insecurity using Bar Plot', fontsize=20)
+plt.ylabel('Percentage by Need', fontsize=15, labelpad=15)
+plt.xlabel('Maui Zip Code', fontsize=15, labelpad=25)
